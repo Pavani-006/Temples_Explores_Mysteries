@@ -9,38 +9,174 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TemplesRouteImport } from './routes/temples'
+import { Route as MysteriesRouteImport } from './routes/mysteries'
+import { Route as LegendsRouteImport } from './routes/legends'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as ArchitectureRouteImport } from './routes/architecture'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TemplesSlugRouteImport } from './routes/temples.$slug'
 
+const TemplesRoute = TemplesRouteImport.update({
+  id: '/temples',
+  path: '/temples',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MysteriesRoute = MysteriesRouteImport.update({
+  id: '/mysteries',
+  path: '/mysteries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegendsRoute = LegendsRouteImport.update({
+  id: '/legends',
+  path: '/legends',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArchitectureRoute = ArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TemplesSlugRoute = TemplesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TemplesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/architecture': typeof ArchitectureRoute
+  '/gallery': typeof GalleryRoute
+  '/legends': typeof LegendsRoute
+  '/mysteries': typeof MysteriesRoute
+  '/temples': typeof TemplesRouteWithChildren
+  '/temples/$slug': typeof TemplesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/architecture': typeof ArchitectureRoute
+  '/gallery': typeof GalleryRoute
+  '/legends': typeof LegendsRoute
+  '/mysteries': typeof MysteriesRoute
+  '/temples': typeof TemplesRouteWithChildren
+  '/temples/$slug': typeof TemplesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/architecture': typeof ArchitectureRoute
+  '/gallery': typeof GalleryRoute
+  '/legends': typeof LegendsRoute
+  '/mysteries': typeof MysteriesRoute
+  '/temples': typeof TemplesRouteWithChildren
+  '/temples/$slug': typeof TemplesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/architecture'
+    | '/gallery'
+    | '/legends'
+    | '/mysteries'
+    | '/temples'
+    | '/temples/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/architecture'
+    | '/gallery'
+    | '/legends'
+    | '/mysteries'
+    | '/temples'
+    | '/temples/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/architecture'
+    | '/gallery'
+    | '/legends'
+    | '/mysteries'
+    | '/temples'
+    | '/temples/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ArchitectureRoute: typeof ArchitectureRoute
+  GalleryRoute: typeof GalleryRoute
+  LegendsRoute: typeof LegendsRoute
+  MysteriesRoute: typeof MysteriesRoute
+  TemplesRoute: typeof TemplesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/temples': {
+      id: '/temples'
+      path: '/temples'
+      fullPath: '/temples'
+      preLoaderRoute: typeof TemplesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mysteries': {
+      id: '/mysteries'
+      path: '/mysteries'
+      fullPath: '/mysteries'
+      preLoaderRoute: typeof MysteriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legends': {
+      id: '/legends'
+      path: '/legends'
+      fullPath: '/legends'
+      preLoaderRoute: typeof LegendsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architecture': {
+      id: '/architecture'
+      path: '/architecture'
+      fullPath: '/architecture'
+      preLoaderRoute: typeof ArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +184,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/temples/$slug': {
+      id: '/temples/$slug'
+      path: '/$slug'
+      fullPath: '/temples/$slug'
+      preLoaderRoute: typeof TemplesSlugRouteImport
+      parentRoute: typeof TemplesRoute
+    }
   }
 }
 
+interface TemplesRouteChildren {
+  TemplesSlugRoute: typeof TemplesSlugRoute
+}
+
+const TemplesRouteChildren: TemplesRouteChildren = {
+  TemplesSlugRoute: TemplesSlugRoute,
+}
+
+const TemplesRouteWithChildren =
+  TemplesRoute._addFileChildren(TemplesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ArchitectureRoute: ArchitectureRoute,
+  GalleryRoute: GalleryRoute,
+  LegendsRoute: LegendsRoute,
+  MysteriesRoute: MysteriesRoute,
+  TemplesRoute: TemplesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

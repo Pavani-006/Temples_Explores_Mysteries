@@ -4,7 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { SanskritDivider } from "@/components/site/SanskritDivider";
 import { Particles } from "@/components/site/Particles";
 import { useReveal } from "@/hooks/use-reveal";
-import { getTemple, temples } from "@/data/temples";
+import { getTemple, temples, type Temple } from "@/data/temples";
 
 export const Route = createFileRoute("/temples/$slug")({
   head: ({ params }) => {
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/temples/$slug")({
 
 function TempleDetail() {
   useReveal();
-  const t = Route.useLoaderData();
+  const t = Route.useLoaderData() as Temple;
   const idx = temples.findIndex(x => x.slug === t.slug);
   const next = temples[(idx + 1) % temples.length];
 
