@@ -1,0 +1,240 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------
+ * Sacred Cinematic Design System
+ * Deep black stone · antique gold · saffron · temple firelight
+ * --------------------------------------------------------------- */
+
+@layer base {
+  @font-face {
+    font-family: "Cormorant Garamond";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/cormorantgaramond/v16/co3YmX5slCNuHLi8bLeY9MK7whWMhyjornFLsS6V7w.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2") format("woff2");
+  }
+}
+
+@theme inline {
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-saffron: var(--saffron);
+  --color-ember: var(--ember);
+  --color-stone: var(--stone);
+
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-flicker: flicker 3.6s ease-in-out infinite;
+  --animate-rise: rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade: fadeIn 1.8s ease-out both;
+  --animate-pulse-glow: pulseGlow 4s ease-in-out infinite;
+  --animate-drift: drift 22s linear infinite;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Deep stone night */
+  --background: oklch(0.13 0.012 60);
+  --foreground: oklch(0.92 0.025 80);
+
+  --card: oklch(0.16 0.014 60 / 0.6);
+  --card-foreground: oklch(0.92 0.025 80);
+  --popover: oklch(0.16 0.014 60);
+  --popover-foreground: oklch(0.92 0.025 80);
+
+  /* Antique gold as primary */
+  --primary: oklch(0.78 0.13 78);
+  --primary-foreground: oklch(0.12 0.01 60);
+
+  --secondary: oklch(0.2 0.015 60);
+  --secondary-foreground: oklch(0.92 0.025 80);
+
+  --muted: oklch(0.2 0.012 60);
+  --muted-foreground: oklch(0.62 0.025 75);
+
+  --accent: oklch(0.65 0.18 50);
+  --accent-foreground: oklch(0.12 0.01 60);
+
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.98 0.005 80);
+
+  --border: oklch(0.78 0.13 78 / 0.18);
+  --input: oklch(0.78 0.13 78 / 0.2);
+  --ring: oklch(0.78 0.13 78 / 0.5);
+
+  /* Brand tokens */
+  --gold: oklch(0.78 0.13 78);
+  --gold-soft: oklch(0.68 0.09 75);
+  --saffron: oklch(0.68 0.19 55);
+  --ember: oklch(0.55 0.18 40);
+  --stone: oklch(0.18 0.013 60);
+}
+
+.dark {
+  --background: oklch(0.13 0.012 60);
+  --foreground: oklch(0.92 0.025 80);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-background);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: oklch(0.78 0.13 78 / 0.3);
+    color: oklch(0.98 0.02 80);
+  }
+}
+
+@layer utilities {
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans  { font-family: var(--font-sans); }
+
+  .text-gold    { color: var(--gold); }
+  .text-saffron { color: var(--saffron); }
+  .bg-stone-deep { background-color: var(--stone); }
+
+  .glass {
+    background: linear-gradient(180deg, oklch(0.2 0.012 60 / 0.55), oklch(0.14 0.012 60 / 0.65));
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid oklch(0.78 0.13 78 / 0.14);
+  }
+
+  .glow-gold {
+    box-shadow:
+      0 0 0 1px oklch(0.78 0.13 78 / 0.12),
+      0 20px 60px -20px oklch(0.68 0.19 55 / 0.35),
+      inset 0 1px 0 oklch(0.78 0.13 78 / 0.08);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 30px oklch(0.78 0.13 78 / 0.35), 0 0 80px oklch(0.68 0.19 55 / 0.2);
+  }
+
+  .ember-glow {
+    background: radial-gradient(circle at center, oklch(0.68 0.19 55 / 0.55), transparent 60%);
+    filter: blur(28px);
+  }
+
+  .vignette::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, oklch(0.08 0.01 60 / 0.85) 100%);
+    pointer-events: none !important;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .grain::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg%20viewBox='0%200%20200%20200'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.9'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20values='0%200%200%200%200.8%20%200%200%200%200%200.6%20%200%200%200%200%200.3%20%200%200%200%200.06%200'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    pointer-events: none !important;
+  }
+}
+
+@layer utilities {
+  .pointer-events-none {
+    pointer-events: none !important;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.5; }
+  50%      { transform: translateY(-40px) translateX(8px); opacity: 1; }
+}
+
+@keyframes drift {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-60px,-120px,0); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.95; filter: brightness(1); }
+  45%      { opacity: 0.7;  filter: brightness(0.85); }
+  55%      { opacity: 1;    filter: brightness(1.1); }
+  70%      { opacity: 0.82; filter: brightness(0.9); }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.08); }
+}
