@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-tirumala.jpg";
 import { Particles } from "./Particles";
 
@@ -47,35 +48,39 @@ export function Hero() {
         </p>
 
         <h1
-          className="max-w-5xl font-serif text-5xl sm:text-7xl md:text-8xl leading-[1.02] text-foreground text-glow animate-rise"
+          className="max-w-5xl font-serif text-5xl sm:text-7xl md:text-[5.5rem] leading-[1.02] text-foreground text-glow animate-rise"
           style={{ animationDelay: "0.6s" }}
         >
-          Where the mountains
+          Ancient mysteries hidden within
           <br />
-          <span className="italic text-[var(--gold)]">remember the gods.</span>
+          <span className="italic text-[var(--gold)]">India's sacred temples.</span>
         </h1>
 
         <p
-          className="mt-10 max-w-xl text-base sm:text-lg leading-relaxed text-foreground/70 font-light animate-rise"
+          className="mt-10 max-w-2xl text-base sm:text-lg leading-relaxed text-foreground/70 font-light animate-rise"
           style={{ animationDelay: "1s" }}
         >
-          A cinematic pilgrimage through the temples, mysteries and unbroken
-          rituals of ancient Bhārata — told in stone, fire and silence.
+          Explore forgotten legends, sacred architecture, divine rituals and the
+          mysterious temples that survived centuries — told in stone, fire and silence.
         </p>
 
         <div
-          className="mt-12 flex items-center gap-6 animate-rise"
+          className="mt-12 flex flex-wrap items-center justify-center gap-4 animate-rise"
           style={{ animationDelay: "1.3s" }}
         >
-          <a
-            href="#history"
+          <Link
+            to="/temples"
             className="group relative inline-flex items-center gap-3 rounded-full bg-[var(--gold)] px-8 py-3.5 text-sm uppercase tracking-[0.22em] text-[var(--primary-foreground)] glow-gold transition-transform duration-500 hover:scale-[1.03]"
           >
-            Enter the Temple
-            <span className="transition-transform duration-500 group-hover:translate-x-1">
-              →
-            </span>
-          </a>
+            Explore Temples
+            <span className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+          </Link>
+          <Link
+            to="/mysteries"
+            className="group relative inline-flex items-center gap-3 rounded-full border border-[var(--gold)]/40 px-8 py-3.5 text-sm uppercase tracking-[0.22em] text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-all duration-500"
+          >
+            Discover Mysteries
+          </Link>
         </div>
       </div>
 
