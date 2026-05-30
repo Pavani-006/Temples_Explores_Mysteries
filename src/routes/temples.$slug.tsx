@@ -1,10 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { SanskritDivider } from "@/components/site/SanskritDivider";
 import { Particles } from "@/components/site/Particles";
 import { useReveal } from "@/hooks/use-reveal";
-import { getTemple, temples, type Temple } from "@/data/temples";
+import { getTemple, getGallery, getReferences, temples, type Temple } from "@/data/temples";
 
 export const Route = createFileRoute("/temples/$slug")({
   head: ({ params }) => {
@@ -25,6 +26,15 @@ export const Route = createFileRoute("/temples/$slug")({
     if (!t) throw notFound();
     return t;
   },
+  errorComponent: ({ error, reset }) => (
+    <div className="flex min-h-screen items-center justify-center bg-background px-6 text-center">
+      <div>
+        <p className="font-serif text-5xl text-[var(--gold)]">ॐ</p>
+        <p className="mt-6 text-foreground/70">{error.message}</p>
+        <button onClick={reset} className="mt-6 text-xs uppercase tracking-[0.3em] text-[var(--gold)]">Try again</button>
+      </div>
+    </div>
+  ),
   notFoundComponent: () => (
     <div className="flex min-h-screen items-center justify-center bg-background px-6 text-center">
       <div>
@@ -37,23 +47,62 @@ export const Route = createFileRoute("/temples/$slug")({
   component: TempleDetail,
 });
 
+const SECTIONS = [
+  { id: "overview", label: "Overview" },
+  { id: "history", label: "History" },
+  { id: "mythology", label: "Mythology" },
+  { id: "mysteries", label: "Mysteries" },
+  { id: "architecture", label: "Architecture" },
+  { id: "rituals", label: "Rituals" },
+  { id: "festivals", label: "Festivals" },
+  { id: "gallery", label: "Gallery" },
+  { id: "timeline", label: "Timeline" },
+  { id: "references", label: "References" },
+];
+
 function TempleDetail() {
   useReveal();
   const t = Route.useLoaderData() as Temple;
   const idx = temples.findIndex(x => x.slug === t.slug);
   const next = temples[(idx + 1) % temples.length];
+  const gallery = getGallery(t.slug, t.image);
+  const references = getReferences(t);
+
+  // Sticky nav active section tracking
+  const [active, setActive] = useState("overview");
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+    SECTIONS.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [t.slug]);
 
   return (
     <div className="relative bg-background text-foreground">
       <Nav />
       <main>
-        {/* Hero */}
-        <section className="relative h-[88vh] min-h-[560px] w-full overflow-hidden grain vignette">
+        {/* ── HERO ────────────────────────────────────────── */}
+        <section className="relative h-[92vh] min-h-[600px] w-full overflow-hidden grain vignette">
           <div className="absolute inset-0 -z-10">
-            <img src={t.image} alt={t.name} className="h-full w-full object-cover animate-fade" style={{ animationDuration: "2.5s" }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/40 to-background" />
+            <img
+              src={t.image}
+              alt={t.name}
+              className="h-full w-full object-cover animate-fade"
+              style={{ animationDuration: "2.5s", transform: "scale(1.08)", transformOrigin: "center" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/30 to-background" />
           </div>
-          <Particles count={22} />
+          <Particles count={26} />
+
           <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
             <p className="mb-6 text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">
               {t.location} · {t.state}
@@ -71,31 +120,101 @@ function TempleDetail() {
               <Badge>{t.mysteryType}</Badge>
             </div>
           </div>
+
+          {/* Hero info strip */}
+          <div className="absolute inset-x-0 bottom-0 z-10 border-t border-[var(--gold)]/15 bg-background/55 backdrop-blur">
+            <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px sm:grid-cols-4">
+              {[
+                ["Where", `${t.location}, ${t.state}`],
+                ["Deity", t.deity],
+                ["Style", t.architecture],
+                ["Era", t.period],
+              ].map(([k, v]) => (
+                <div key={k} className="px-6 py-5">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gold)]/70">{k}</p>
+                  <p className="mt-2 text-sm text-foreground/85 font-light">{v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
+
+        {/* ── STICKY IN-PAGE NAV ─────────────────────────── */}
+        <div className="sticky top-0 z-30 border-b border-[var(--gold)]/15 bg-background/80 backdrop-blur-xl">
+          <div className="mx-auto max-w-7xl px-6">
+            <nav className="flex gap-1 overflow-x-auto py-3 scrollbar-none">
+              {SECTIONS.map((s) => (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  className={`whitespace-nowrap rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.28em] transition-all ${
+                    active === s.id
+                      ? "bg-[var(--gold)]/15 text-[var(--gold)]"
+                      : "text-foreground/55 hover:text-[var(--gold)]"
+                  }`}
+                >
+                  {s.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
 
         <SanskritDivider />
 
-        {/* Overview */}
-        <Section eyebrow="Overview" title="A first glimpse">
+        {/* ── OVERVIEW ───────────────────────────────────── */}
+        <Section id="overview" eyebrow="Overview" title="A first glimpse">
           <p>{t.overview}</p>
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {[
+              ["Why it matters", t.tagline],
+              ["The mystery", t.mysteryType],
+              ["Tradition", t.deity],
+            ].map(([k, v]) => (
+              <div key={k} className="rounded-sm border border-[var(--gold)]/15 bg-stone-deep/60 p-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gold)]/70">{k}</p>
+                <p className="mt-3 text-sm text-foreground/80 font-light">{v}</p>
+              </div>
+            ))}
+          </div>
         </Section>
 
-        {/* History */}
-        <Section eyebrow="History" title="The making of stone" tone="stone">
-          <p>{t.history}</p>
-        </Section>
+        {/* ── HISTORY ────────────────────────────────────── */}
+        <section id="history" className="relative px-6 py-28 bg-stone-deep">
+          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+            <div className="reveal relative overflow-hidden rounded-sm">
+              <img src={gallery[1]} alt={`${t.name} stonework`} loading="lazy" className="h-[60vh] w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+            </div>
+            <div className="reveal">
+              <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">History</p>
+              <h2 className="mt-4 font-serif text-4xl sm:text-5xl">The making of stone.</h2>
+              <p className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">{t.history}</p>
+            </div>
+          </div>
+        </section>
 
-        {/* Mythology */}
-        <Section eyebrow="Mythology" title="The story told in whisper">
-          <p>{t.mythology}</p>
-        </Section>
+        {/* ── MYTHOLOGY ──────────────────────────────────── */}
+        <section id="mythology" className="relative px-6 py-28">
+          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+            <div className="reveal">
+              <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mythology</p>
+              <h2 className="mt-4 font-serif text-4xl sm:text-5xl">The story told in whisper.</h2>
+              <p className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">{t.mythology}</p>
+            </div>
+            <div className="reveal relative overflow-hidden rounded-sm">
+              <div className="absolute -inset-8 ember-glow opacity-50" />
+              <img src={gallery[2]} alt={`${t.name} myth`} loading="lazy" className="relative h-[60vh] w-full object-cover" />
+            </div>
+          </div>
+        </section>
 
-        {/* Mysteries */}
-        <section className="relative px-6 py-32 bg-stone-deep">
-          <div className="mx-auto max-w-5xl reveal">
+        {/* ── MYSTERIES ──────────────────────────────────── */}
+        <section id="mysteries" className="relative px-6 py-28 bg-stone-deep">
+          <div className="mx-auto max-w-6xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mysteries & Legends</p>
-            <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-foreground">Things that have never been explained.</h2>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Things that have never been explained.</h2>
+            <div className="mt-14 grid gap-5 sm:grid-cols-2">
               {t.mysteries.map((m, i) => (
                 <article key={i} className="reveal glass relative overflow-hidden rounded-sm p-8" style={{ transitionDelay: `${i * 80}ms` }}>
                   <span className="absolute right-6 top-6 font-serif text-4xl text-[var(--gold)]/25">
@@ -108,13 +227,20 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* Architecture */}
-        <Section eyebrow="Sacred Architecture" title="Geometry of the divine">
-          <p>{t.architectureNote}</p>
-        </Section>
+        {/* ── ARCHITECTURE ───────────────────────────────── */}
+        <section id="architecture" className="relative px-6 py-28">
+          <div className="mx-auto max-w-4xl reveal">
+            <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Sacred Architecture</p>
+            <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-center">Geometry of the divine.</h2>
+            <p className="mt-8 text-lg leading-relaxed text-foreground/75 font-light text-center">{t.architectureNote}</p>
+          </div>
+          <div className="reveal mx-auto mt-16 max-w-6xl overflow-hidden rounded-sm">
+            <img src={gallery[3]} alt={`${t.name} architecture`} loading="lazy" className="h-[72vh] w-full object-cover" />
+          </div>
+        </section>
 
-        {/* Rituals & Festivals two-col */}
-        <section className="relative px-6 py-32 bg-stone-deep">
+        {/* ── RITUALS & FESTIVALS ────────────────────────── */}
+        <section id="rituals" className="relative px-6 py-28 bg-stone-deep">
           <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2">
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Rituals</p>
@@ -125,7 +251,7 @@ function TempleDetail() {
                 ))}
               </ul>
             </div>
-            <div className="reveal">
+            <div id="festivals" className="reveal scroll-mt-24">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Festivals</p>
               <h3 className="mt-4 font-serif text-3xl">The year of the deity.</h3>
               <ul className="mt-8 space-y-4 border-l border-[var(--gold)]/30 pl-6">
@@ -137,8 +263,32 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* Timeline */}
-        <section className="relative px-6 py-32">
+        {/* ── GALLERY ────────────────────────────────────── */}
+        <section id="gallery" className="relative px-6 py-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="reveal">
+              <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Gallery</p>
+              <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Fragments of the sacred.</h2>
+            </div>
+            <div className="mt-12 grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {gallery.map((src, i) => (
+                <div
+                  key={i}
+                  className={`reveal group relative overflow-hidden rounded-sm ${
+                    i === 0 ? "col-span-2 row-span-2" : i === 3 ? "row-span-2" : ""
+                  }`}
+                  style={{ transitionDelay: `${i * 60}ms` }}
+                >
+                  <img src={src} alt={`${t.name} ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── TIMELINE ───────────────────────────────────── */}
+        <section id="timeline" className="relative px-6 py-28 bg-stone-deep">
           <div className="mx-auto max-w-4xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Timeline</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Moments in stone.</h2>
@@ -154,8 +304,8 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* Rare facts */}
-        <section className="relative px-6 py-32 bg-stone-deep">
+        {/* ── RARE FACTS ─────────────────────────────────── */}
+        <section className="relative px-6 py-28">
           <div className="mx-auto max-w-5xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Rare Facts</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Less spoken of.</h2>
@@ -170,7 +320,33 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* Next */}
+        {/* ── REFERENCES ─────────────────────────────────── */}
+        <section id="references" className="relative px-6 py-28 bg-stone-deep">
+          <div className="mx-auto max-w-5xl reveal">
+            <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">References & Further Reading</p>
+            <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Follow the thread.</h2>
+            <ul className="mt-12 divide-y divide-[var(--gold)]/15 border-y border-[var(--gold)]/15">
+              {references.map((r) => (
+                <li key={r.label}>
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="group flex items-center justify-between gap-6 py-5 transition-colors hover:text-[var(--gold)]"
+                  >
+                    <span className="text-sm text-foreground/75 group-hover:text-[var(--gold)]">{r.label}</span>
+                    <span className="text-xs uppercase tracking-[0.3em] text-[var(--gold)]/70 transition-transform group-hover:translate-x-1">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-xs uppercase tracking-[0.28em] text-foreground/40">
+              Sources open in a new tab. Verify with primary epigraphy and ASI records.
+            </p>
+          </div>
+        </section>
+
+        {/* ── NEXT ───────────────────────────────────────── */}
         <section className="relative px-6 py-24 text-center">
           <p className="text-[10px] uppercase tracking-[0.4em] text-foreground/40">Continue the pilgrimage</p>
           <Link
@@ -196,9 +372,9 @@ function Badge({ children }: { children: React.ReactNode }) {
   return <span className="rounded-full border border-[var(--gold)]/25 px-3 py-1.5">{children}</span>;
 }
 
-function Section({ eyebrow, title, children, tone }: { eyebrow: string; title: string; children: React.ReactNode; tone?: "stone" }) {
+function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children: React.ReactNode }) {
   return (
-    <section className={`relative px-6 py-28 ${tone === "stone" ? "bg-stone-deep" : ""}`}>
+    <section id={id} className="relative px-6 py-28 scroll-mt-20">
       <div className="mx-auto max-w-4xl reveal">
         <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">{eyebrow}</p>
         <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-foreground">{title}</h2>
