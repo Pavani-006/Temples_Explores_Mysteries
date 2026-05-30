@@ -8,7 +8,7 @@ import { useReveal } from "@/hooks/use-reveal";
 import { temples, STATES, DEITIES, STYLES, MYSTERY_TYPES } from "@/data/temples";
 import architecture from "@/assets/architecture.jpg";
 
-export const Route = createFileRoute("/temples")({
+export const Route = createFileRoute("/temples/")({
   head: () => ({
     meta: [
       { title: "Temple Explorer · 50 Sacred Temples of India · Sanātana" },
