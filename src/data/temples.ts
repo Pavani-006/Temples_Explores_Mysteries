@@ -1303,3 +1303,25 @@ export const MYSTERY_TYPES = Array.from(new Set(temples.map(t => t.mysteryType))
 export function getTemple(slug: string) {
   return temples.find(t => t.slug === slug);
 }
+
+// Deterministic gallery derived from the shared image pool, unique per slug.
+export function getGallery(slug: string, primary: string): string[] {
+  const seed = Array.from(slug).reduce((a, c) => a + c.charCodeAt(0), 0);
+  const others = POOL.filter(p => p !== primary);
+  const out: string[] = [primary];
+  for (let i = 0; i < 5; i++) {
+    out.push(others[(seed + i * 3) % others.length]);
+  }
+  return out;
+}
+
+// Default research references for any temple.
+export function getReferences(t: Temple): { label: string; url: string }[] {
+  const q = encodeURIComponent(t.name);
+  return [
+    { label: "Wikipedia · " + t.name, url: `https://en.wikipedia.org/wiki/Special:Search?search=${q}` },
+    { label: "Archaeological Survey of India", url: `https://asi.nic.in/?s=${q}` },
+    { label: "INTACH heritage records", url: `https://www.intach.org/?s=${q}` },
+    { label: "Google Scholar — academic papers", url: `https://scholar.google.com/scholar?q=${q}` },
+  ];
+}
