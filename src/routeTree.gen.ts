@@ -54,9 +54,9 @@ const TemplesIndexRoute = TemplesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TemplesSlugRoute = TemplesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => TemplesRoute,
+  id: '/temples/$slug',
+  path: '/temples/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -130,6 +130,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   LegendsRoute: typeof LegendsRoute
   MysteriesRoute: typeof MysteriesRoute
+  TemplesSlugRoute: typeof TemplesSlugRoute
   TemplesIndexRoute: typeof TemplesIndexRoute
 }
 
@@ -186,10 +187,10 @@ declare module '@tanstack/react-router' {
     }
     '/temples/$slug': {
       id: '/temples/$slug'
-      path: '/$slug'
+      path: '/temples/$slug'
       fullPath: '/temples/$slug'
       preLoaderRoute: typeof TemplesSlugRouteImport
-      parentRoute: typeof TemplesRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -201,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   LegendsRoute: LegendsRoute,
   MysteriesRoute: MysteriesRoute,
+  TemplesSlugRoute: TemplesSlugRoute,
   TemplesIndexRoute: TemplesIndexRoute,
 }
 export const routeTree = rootRouteImport
