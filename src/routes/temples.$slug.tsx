@@ -404,3 +404,14 @@ function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string
     </section>
   );
 }
+
+function Prose({ text }: { text: string }) {
+  const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
+  return (
+    <div className="space-y-5">
+      {paragraphs.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </div>
+  );
+}
