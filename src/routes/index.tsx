@@ -6,6 +6,7 @@ import { Footer } from "@/components/site/Footer";
 import { SanskritDivider } from "@/components/site/SanskritDivider";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Particles } from "@/components/site/Particles";
+import { FeaturedTemples } from "@/components/site/FeaturedTemples";
 
 import historyImg from "@/assets/history-stone.jpg";
 import mysteriesImg from "@/assets/mysteries.jpg";
@@ -48,6 +49,8 @@ function Index() {
       <Nav />
       <main>
         <Hero />
+
+        <FeaturedTemples />
 
         <SanskritDivider />
 
