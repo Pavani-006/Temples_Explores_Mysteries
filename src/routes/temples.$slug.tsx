@@ -164,7 +164,7 @@ function TempleDetail() {
 
         {/* ── OVERVIEW ───────────────────────────────────── */}
         <Section id="overview" eyebrow="Overview" title="A first glimpse">
-          <p>{t.overview}</p>
+          <Prose text={t.overview} />
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
               ["Why it matters", t.tagline],
@@ -180,29 +180,40 @@ function TempleDetail() {
         </Section>
 
         {/* ── HISTORY ────────────────────────────────────── */}
-        <section id="history" className="relative px-6 py-28 bg-stone-deep">
-          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <div className="reveal relative overflow-hidden rounded-sm">
+        <section id="history" className="relative px-6 py-28 bg-stone-deep scroll-mt-20">
+          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+            <div className="reveal relative overflow-hidden rounded-sm lg:sticky lg:top-24 self-start">
               <img src={gallery[1]} alt={`${t.name} stonework`} loading="lazy" className="h-[60vh] w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
             </div>
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">History</p>
               <h2 className="mt-4 font-serif text-4xl sm:text-5xl">The making of stone.</h2>
-              <p className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">{t.history}</p>
+              <div className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">
+                <Prose text={t.history} />
+              </div>
             </div>
           </div>
         </section>
 
+        {/* Cinematic architecture image between sections */}
+        <div className="reveal mx-auto max-w-7xl px-6 pt-16">
+          <div className="overflow-hidden rounded-sm">
+            <img src={gallery[4]} alt={`${t.name} grand view`} loading="lazy" className="h-[55vh] w-full object-cover" />
+          </div>
+        </div>
+
         {/* ── MYTHOLOGY ──────────────────────────────────── */}
-        <section id="mythology" className="relative px-6 py-28">
-          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <section id="mythology" className="relative px-6 py-28 scroll-mt-20">
+          <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-start">
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mythology</p>
               <h2 className="mt-4 font-serif text-4xl sm:text-5xl">The story told in whisper.</h2>
-              <p className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">{t.mythology}</p>
+              <div className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">
+                <Prose text={t.mythology} />
+              </div>
             </div>
-            <div className="reveal relative overflow-hidden rounded-sm">
+            <div className="reveal relative overflow-hidden rounded-sm lg:sticky lg:top-24 self-start">
               <div className="absolute -inset-8 ember-glow opacity-50" />
               <img src={gallery[2]} alt={`${t.name} myth`} loading="lazy" className="relative h-[60vh] w-full object-cover" />
             </div>
@@ -210,7 +221,7 @@ function TempleDetail() {
         </section>
 
         {/* ── MYSTERIES ──────────────────────────────────── */}
-        <section id="mysteries" className="relative px-6 py-28 bg-stone-deep">
+        <section id="mysteries" className="relative px-6 py-28 bg-stone-deep scroll-mt-20">
           <div className="mx-auto max-w-6xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mysteries & Legends</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Things that have never been explained.</h2>
@@ -228,14 +239,24 @@ function TempleDetail() {
         </section>
 
         {/* ── ARCHITECTURE ───────────────────────────────── */}
-        <section id="architecture" className="relative px-6 py-28">
+        <section id="architecture" className="relative px-6 py-28 scroll-mt-20">
           <div className="mx-auto max-w-4xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Sacred Architecture</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-center">Geometry of the divine.</h2>
-            <p className="mt-8 text-lg leading-relaxed text-foreground/75 font-light text-center">{t.architectureNote}</p>
+            <div className="mt-8 text-lg leading-relaxed text-foreground/75 font-light">
+              <Prose text={t.architectureNote} />
+            </div>
           </div>
           <div className="reveal mx-auto mt-16 max-w-6xl overflow-hidden rounded-sm">
             <img src={gallery[3]} alt={`${t.name} architecture`} loading="lazy" className="h-[72vh] w-full object-cover" />
+          </div>
+          <div className="reveal mx-auto mt-6 grid max-w-6xl gap-6 sm:grid-cols-2">
+            <div className="overflow-hidden rounded-sm">
+              <img src={gallery[5]} alt={`${t.name} detail`} loading="lazy" className="h-[44vh] w-full object-cover" />
+            </div>
+            <div className="overflow-hidden rounded-sm">
+              <img src={gallery[6] ?? gallery[0]} alt={`${t.name} interior`} loading="lazy" className="h-[44vh] w-full object-cover" />
+            </div>
           </div>
         </section>
 
