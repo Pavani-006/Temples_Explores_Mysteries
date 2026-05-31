@@ -1309,7 +1309,7 @@ export function getGallery(slug: string, primary: string): string[] {
   const seed = Array.from(slug).reduce((a, c) => a + c.charCodeAt(0), 0);
   const others = POOL.filter(p => p !== primary);
   const out: string[] = [primary];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 7; i++) {
     out.push(others[(seed + i * 3) % others.length]);
   }
   return out;
