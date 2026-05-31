@@ -53,10 +53,10 @@ export const temples: Temple[] = [
     mythology:
       "Vishnu, exiled from Vaikuntha, took refuge on the Venkata hill awaiting his bride Padmavati. The deity is svayambhu — self-manifested — not carved by human hand.",
     mysteries: [
-      "The deity's hair never tangles; fresh strands appear after each abhishekam.",
-      "A drop of camphor placed on the chin vanishes without trace.",
-      "Place an ear near the sanctum and the faint roar of an ocean is heard.",
-      "The flame in the inner shrine has burned, by record, for over a thousand years.",
+      "According to temple tradition, the deity's hair never tangles; fresh strands are said to appear after each abhishekam.",
+      "Devotees believe a drop of camphor placed on the chin vanishes without trace.",
+      "Local legends state that an ear held close to the sanctum hears the faint roar of an ocean.",
+      "According to temple records, the flame in the inner shrine has burned for over a thousand years without extinction.",
     ],
     architectureNote:
       "A classical Dravidian vimana crowned by the Ananda Nilayam — a gold-plated dome over the sanctum. Surrounding mandapas record centuries of Pallava, Chola and Vijayanagara hands.",
@@ -90,9 +90,9 @@ export const temples: Temple[] = [
     mythology:
       "Sage Agastya is said to have installed the lingam here. The name Lepakshi (le pakshi — 'rise, bird') comes from Rama's words to the dying Jatayu.",
     mysteries: [
-      "One of seventy pillars hangs without touching the floor — cloth slides freely beneath it.",
-      "A giant footprint in the rock fills perpetually with water from an unknown source.",
-      "A single block of granite forms the largest monolithic Nandi in India, a kilometre from the temple.",
+      "According to temple tradition, one of seventy pillars hangs without touching the floor — visitors are shown cloth sliding freely beneath it.",
+      "Local legends state that a giant footprint in the rock fills perpetually with water from an unknown source.",
+      "Devotees believe the monolithic Nandi a kilometre away was carved from a single block of granite by divine hand.",
     ],
     architectureNote:
       "Sprawling rock-cut Vijayanagara work: painted ceilings, dancing apsaras, sculpted Nataraja and an unfinished marriage hall whose ornate pillars rival anything in Hampi.",
@@ -125,9 +125,9 @@ export const temples: Temple[] = [
     mythology:
       "Krishna's son Samba was cursed with leprosy and cured by twelve years of devotion to Surya. Konark marks the geography of that healing.",
     mysteries: [
-      "The twelve wheels are precise sundials, accurate to the minute.",
-      "A central lodestone is said to have suspended Surya's idol mid-air; sailors removed it when their compasses failed near the coast.",
-      "The temple aligns so the first sun of equinox strikes the sanctum's heart.",
+      "Scholars note that the twelve carved wheels function as precise sundials, accurate to the minute.",
+      "Local legends state that a central lodestone once suspended Surya's idol mid-air, until sailors removed it when their compasses failed near the coast.",
+      "According to temple tradition, the structure aligns so the first sun of equinox strikes the sanctum's heart.",
     ],
     architectureNote:
       "Pure Kalinga form: the deul, jagamohana and nata mandira aligned east. Every surface carved — wheels, lovers, musicians, beasts and the king himself.",
@@ -161,9 +161,9 @@ export const temples: Temple[] = [
     mythology:
       "A symbolic replica of Mount Kailasa, the cosmic mountain where Shiva resides. The vertical descent of carving mirrors the soul's descent into the body.",
     mysteries: [
-      "No quarrying records exist for the displaced stone — its destination is unknown.",
-      "The tolerances of the carving suggest tools and methods absent from the period's record.",
-      "Vertical megalithic excavation of this scale has never been replicated.",
+      "Historians note that no quarrying records exist for the displaced stone — its destination remains unknown.",
+      "Scholars observe that the tolerances of the carving suggest tools and methods absent from the period's record.",
+      "Local tradition holds that vertical megalithic excavation of this scale has never been replicated.",
     ],
     architectureNote:
       "A double-storeyed vimana flanked by elephants and lions, surrounded by cloistered cells. Every cornice, frieze and figure was discovered, not built.",
@@ -196,9 +196,9 @@ export const temples: Temple[] = [
     mythology:
       "Vishnu reclines on the serpent Ananta, visible through three doors — the face, the navel and the feet of the cosmic body.",
     mysteries: [
-      "Vault B is sealed by a steel door without bolts, latches or visible mechanism.",
-      "Legend says only the Garuda Mantra can open it; force may release great calamity.",
-      "Recovered treasure exceeds an estimated $20 billion — and that is from six of seven vaults.",
+      "According to temple tradition, Vault B is sealed by a steel door without bolts, latches or visible mechanism.",
+      "Local legends state that only the Garuda Mantra can open it, and that force may release great calamity.",
+      "Recovered treasure from six of the seven vaults is reported to exceed an estimated $20 billion.",
     ],
     architectureNote:
       "A seven-storey gopuram of South Indian form, but with Kerala timber roofs and copper plating — a rare hybrid of two regional traditions.",
@@ -232,9 +232,9 @@ export const temples: Temple[] = [
     mythology:
       "Said to have been founded after Shiva appeared in the king's dream as Dakshinameru — the southern Mount Meru.",
     mysteries: [
-      "The 80-ton capstone sits atop a 216-foot vimana — how it was raised is debated.",
-      "The vimana's shadow never falls outside the temple's plinth at noon.",
-      "Hidden frescoes from the Chola period were discovered beneath Nayak-era paintings.",
+      "Historians debate how the 80-ton capstone was raised atop a 216-foot vimana a thousand years ago.",
+      "According to temple tradition, the vimana's shadow never falls outside the temple's plinth at noon.",
+      "Conservators have uncovered hidden Chola-era frescoes beneath later Nayak paintings.",
     ],
     architectureNote:
       "Built entirely of granite quarried from quarries more than 50 km away. The single-stone shikhara is among the largest ever lifted.",
