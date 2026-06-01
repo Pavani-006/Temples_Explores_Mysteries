@@ -204,7 +204,7 @@ function TempleDetail() {
         </Section>
 
         {/* ── HISTORY ────────────────────────────────────── */}
-        <section id="history" className="relative px-6 py-28 bg-stone-deep scroll-mt-20">
+        <section id="history" className="relative px-6 py-20 bg-stone-deep scroll-mt-20">
           <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start">
             <div className="reveal relative overflow-hidden rounded-sm lg:sticky lg:top-24 self-start">
               <img src={gallery[1]} alt={`${t.name} stonework`} loading="lazy" className="h-[60vh] w-full object-cover" />
@@ -228,7 +228,7 @@ function TempleDetail() {
         </div>
 
         {/* ── MYTHOLOGY ──────────────────────────────────── */}
-        <section id="mythology" className="relative px-6 py-28 scroll-mt-20">
+        <section id="mythology" className="relative px-6 py-20 scroll-mt-20">
           <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-start">
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mythology</p>
@@ -245,7 +245,7 @@ function TempleDetail() {
         </section>
 
         {/* ── MYSTERIES ──────────────────────────────────── */}
-        <section id="mysteries" className="relative px-6 py-28 bg-stone-deep scroll-mt-20">
+        <section id="mysteries" className="relative px-6 py-20 bg-stone-deep scroll-mt-20">
           <div className="mx-auto max-w-6xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mysteries & Legends</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Things that have never been explained.</h2>
@@ -263,7 +263,7 @@ function TempleDetail() {
         </section>
 
         {/* ── ARCHITECTURE ───────────────────────────────── */}
-        <section id="architecture" className="relative px-6 py-28 scroll-mt-20">
+        <section id="architecture" className="relative px-6 py-20 scroll-mt-20">
           <div className="mx-auto max-w-4xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Sacred Architecture</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-center">Geometry of the divine.</h2>
@@ -285,7 +285,7 @@ function TempleDetail() {
         </section>
 
         {/* ── RITUALS & FESTIVALS ────────────────────────── */}
-        <section id="rituals" className="relative px-6 py-28 bg-stone-deep">
+        <section id="rituals" className="relative px-6 py-20 bg-stone-deep">
           <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2">
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Rituals</p>
@@ -309,7 +309,7 @@ function TempleDetail() {
         </section>
 
         {/* ── GALLERY ────────────────────────────────────── */}
-        <section id="gallery" className="relative px-6 py-28">
+        <section id="gallery" className="relative px-6 py-20">
           <div className="mx-auto max-w-7xl">
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Gallery</p>
@@ -333,7 +333,7 @@ function TempleDetail() {
         </section>
 
         {/* ── TIMELINE ───────────────────────────────────── */}
-        <section id="timeline" className="relative px-6 py-28 bg-stone-deep">
+        <section id="timeline" className="relative px-6 py-20 bg-stone-deep">
           <div className="mx-auto max-w-4xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Timeline</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Moments in stone.</h2>
@@ -350,7 +350,7 @@ function TempleDetail() {
         </section>
 
         {/* ── RARE FACTS ─────────────────────────────────── */}
-        <section className="relative px-6 py-28">
+        <section className="relative px-6 py-20">
           <div className="mx-auto max-w-5xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Rare Facts</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Less spoken of.</h2>
@@ -366,7 +366,7 @@ function TempleDetail() {
         </section>
 
         {/* ── REFERENCES ─────────────────────────────────── */}
-        <section id="references" className="relative px-6 py-28 bg-stone-deep">
+        <section id="references" className="relative px-6 py-20 bg-stone-deep">
           <div className="mx-auto max-w-5xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">References & Further Reading</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Follow the thread.</h2>
@@ -392,7 +392,7 @@ function TempleDetail() {
         </section>
 
         {/* ── NEXT ───────────────────────────────────────── */}
-        <section className="relative px-6 py-24 text-center">
+        <section className="relative px-6 py-16 text-center">
           <p className="text-[10px] uppercase tracking-[0.4em] text-foreground/40">Continue the pilgrimage</p>
           <Link
             to="/temples/$slug"
@@ -419,7 +419,7 @@ function Badge({ children }: { children: React.ReactNode }) {
 
 function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="relative px-6 py-28 scroll-mt-20">
+    <section id={id} className="relative px-6 py-20 scroll-mt-20">
       <div className="mx-auto max-w-4xl reveal">
         <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">{eyebrow}</p>
         <h2 className="mt-4 font-serif text-4xl sm:text-5xl text-foreground">{title}</h2>
