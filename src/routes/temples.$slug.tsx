@@ -162,6 +162,30 @@ function TempleDetail() {
 
         <SanskritDivider />
 
+        {/* ── QUICK FACTS ────────────────────────────────── */}
+        <section className="relative px-6 pt-4 pb-16">
+          <div className="mx-auto max-w-7xl reveal">
+            <p className="text-center text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Quick Facts</p>
+            <h2 className="mt-3 text-center font-serif text-3xl sm:text-4xl text-foreground">At a glance</h2>
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-[var(--gold)]/15 bg-[var(--gold)]/10 sm:grid-cols-3 lg:grid-cols-5">
+              {[
+                ["Location", `${t.location}, ${t.state}`],
+                ["Main Deity", t.deity],
+                ["Architecture", t.architecture],
+                ["Historical Era", t.period],
+                ["Mystery Type", t.mysteryType],
+              ].map(([k, v]) => (
+                <div key={k} className="bg-stone-deep/80 px-6 py-7">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gold)]/70">{k}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/85 font-light">{v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+
         {/* ── OVERVIEW ───────────────────────────────────── */}
         <Section id="overview" eyebrow="Overview" title="A first glimpse">
           <Prose text={t.overview} />
