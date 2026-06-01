@@ -1724,14 +1724,24 @@ export function getTemple(slug: string) {
 
 // Deterministic gallery derived from the shared image pool, unique per slug.
 export function getGallery(slug: string, primary: string): string[] {
-  const seed = Array.from(slug).reduce((a, c) => a + c.charCodeAt(0), 0);
-  const others = POOL.filter(p => p !== primary);
-  const out: string[] = [primary];
-  for (let i = 0; i < 7; i++) {
-    out.push(others[(seed + i * 3) % others.length]);
+  // FNV-like hash for better dispersion across slugs
+  let h = 2166136261;
+  for (let i = 0; i < slug.length; i++) {
+    h ^= slug.charCodeAt(i);
+    h = Math.imul(h, 16777619);
   }
-  return out;
+  const others = POOL.filter(p => p !== primary);
+  // Shuffle `others` deterministically via Fisher-Yates seeded by hash
+  const arr = [...others];
+  let s = Math.abs(h) || 1;
+  for (let i = arr.length - 1; i > 0; i--) {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    const j = s % (i + 1);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return [primary, ...arr.slice(0, 7)];
 }
+
 
 // Default research references for any temple.
 export function getReferences(t: Temple): { label: string; url: string }[] {
