@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 /** Subtle floating embers / dust particles for cinematic atmosphere. */
-export function Particles({ count = 28 }: { count?: number }) {
+export default function Particles({ count = 28 }) {
   const particles = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({

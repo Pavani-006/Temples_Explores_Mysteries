@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import heroImg from "@/assets/hero-tirumala.jpg";
-import { Particles } from "./Particles";
+import Particles from "./Particles.jsx";
 
-export function Hero() {
+export default function HeroSection() {
   const [y, setY] = useState(0);
 
   useEffect(() => {
@@ -17,7 +17,6 @@ export function Hero() {
       id="top"
       className="relative h-[100svh] min-h-[640px] w-full overflow-hidden grain vignette"
     >
-      {/* Parallax background */}
       <div
         className="absolute inset-0 -z-10 will-change-transform"
         style={{
@@ -38,7 +37,6 @@ export function Hero() {
 
       <Particles count={32} />
 
-      {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
         <p
           className="mb-8 text-[10px] sm:text-xs uppercase tracking-[0.55em] text-[var(--gold)]/80 animate-rise"
@@ -84,7 +82,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll cue */}
       <div
         className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 animate-rise"
         style={{ animationDelay: "1.8s" }}

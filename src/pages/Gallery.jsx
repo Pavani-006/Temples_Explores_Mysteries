@@ -1,8 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { PageHero } from "@/components/site/PageHero";
-import { useReveal } from "@/hooks/use-reveal";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import PageHero from "@/components/PageHero.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
 import festivals from "@/assets/festivals.jpg";
 import g1 from "@/assets/gallery-1.jpg";
 import g2 from "@/assets/gallery-2.jpg";
@@ -13,18 +12,6 @@ import rituals from "@/assets/rituals.jpg";
 import mysteries from "@/assets/mysteries.jpg";
 import pilgrim from "@/assets/pilgrim.jpg";
 import tirumala from "@/assets/hero-tirumala.jpg";
-
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: "Gallery · Sanātana" },
-      { name: "description", content: "A cinematic visual archive of India's sacred temples — stone, fire, sculpture and silence." },
-      { property: "og:title", content: "Gallery · Sanātana" },
-      { property: "og:description", content: "Cinematic visual archive of India's sacred temples." },
-    ],
-  }),
-  component: GalleryPage,
-});
 
 const IMAGES = [
   { src: tirumala, alt: "Tirumala hills in golden mist", caption: "Tirumala · Andhra Pradesh", span: "row-span-2" },
@@ -39,11 +26,11 @@ const IMAGES = [
   { src: g3, alt: "Sculpted face emerging from stone", caption: "Carving · the breath of the deity", span: "" },
 ];
 
-function GalleryPage() {
+export default function Gallery() {
   useReveal();
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
         <PageHero
           eyebrow="Gallery"

@@ -11,31 +11,8 @@ import g3 from "@/assets/gallery-3.jpg";
 
 const POOL = [tirumala, history, mysteries, architecture, rituals, festivals, pilgrim, g1, g2, g3];
 
-export type Temple = {
-  slug: string;
-  name: string;
-  location: string;
-  state: string;
-  deity: string;
-  architecture: string;
-  period: string;
-  mysteryType: string;
-  tagline: string;
-  overview: string;
-  history: string;
-  mythology: string;
-  mysteries: string[];
-  architectureNote: string;
-  rituals: string[];
-  festivals: string[];
-  rareFacts: string[];
-  timeline: { year: string; event: string }[];
-  image: string;
-};
 
-const T = (i: number) => POOL[i % POOL.length];
-
-export const temples: Temple[] = [
+export const temples = [
   {
     slug: "tirumala-venkateswara",
     name: "Tirumala Venkateswara Temple",
@@ -1546,12 +1523,12 @@ export const DEITIES = Array.from(new Set(temples.map(t => t.deity.split(/[(–&
 export const STYLES = Array.from(new Set(temples.map(t => t.architecture))).sort();
 export const MYSTERY_TYPES = Array.from(new Set(temples.map(t => t.mysteryType))).sort();
 
-export function getTemple(slug: string) {
+export function getTemple(slug) {
   return temples.find(t => t.slug === slug);
 }
 
 // Deterministic gallery derived from the shared image pool, unique per slug.
-export function getGallery(slug: string, primary: string): string[] {
+export function getGallery(slug, primary) {
   // FNV-like hash for better dispersion across slugs
   let h = 2166136261;
   for (let i = 0; i < slug.length; i++) {
@@ -1572,7 +1549,7 @@ export function getGallery(slug: string, primary: string): string[] {
 
 
 // Default research references for any temple.
-export function getReferences(t: Temple): { label: string; url: string }[] {
+export function getReferences(t) {
   const q = encodeURIComponent(t.name);
   return [
     { label: "Wikipedia · " + t.name, url: `https://en.wikipedia.org/wiki/Special:Search?search=${q}` },

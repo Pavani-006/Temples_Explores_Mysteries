@@ -1,18 +1,6 @@
-import { Particles } from "./Particles";
+import Particles from "./Particles.jsx";
 
-export function PageHero({
-  eyebrow,
-  title,
-  subtitle,
-  image,
-  height = "h-[72vh]",
-}: {
-  eyebrow: string;
-  title: React.ReactNode;
-  subtitle?: string;
-  image: string;
-  height?: string;
-}) {
+export default function PageHero({ eyebrow, title, subtitle, image, height = "h-[72vh]" }) {
   return (
     <section className={`relative ${height} min-h-[480px] w-full overflow-hidden grain vignette`}>
       <div className="absolute inset-0 -z-10">

@@ -1,51 +1,13 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { SanskritDivider } from "@/components/site/SanskritDivider";
-import { Particles } from "@/components/site/Particles";
-import { useReveal } from "@/hooks/use-reveal";
-import { getTemple, getGallery, getReferences, temples, type Temple } from "@/data/temples";
-
-export const Route = createFileRoute("/temples/$slug")({
-  head: ({ params }) => {
-    const t = getTemple(params.slug);
-    if (!t) return { meta: [{ title: "Temple · Sanātana" }] };
-    return {
-      meta: [
-        { title: `${t.name} · ${t.location} · Sanātana` },
-        { name: "description", content: t.tagline + " " + t.overview.slice(0, 140) },
-        { property: "og:title", content: `${t.name} · Sanātana` },
-        { property: "og:description", content: t.tagline },
-        { property: "og:image", content: t.image },
-      ],
-    };
-  },
-  loader: ({ params }) => {
-    const t = getTemple(params.slug);
-    if (!t) throw notFound();
-    return t;
-  },
-  errorComponent: ({ error, reset }) => (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6 text-center">
-      <div>
-        <p className="font-serif text-5xl text-[var(--gold)]">ॐ</p>
-        <p className="mt-6 text-foreground/70">{error.message}</p>
-        <button onClick={reset} className="mt-6 text-xs uppercase tracking-[0.3em] text-[var(--gold)]">Try again</button>
-      </div>
-    </div>
-  ),
-  notFoundComponent: () => (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6 text-center">
-      <div>
-        <p className="font-serif text-6xl text-[var(--gold)]">ॐ</p>
-        <h1 className="mt-6 font-serif text-3xl text-foreground">Temple not found</h1>
-        <Link to="/temples" className="mt-8 inline-block text-xs uppercase tracking-[0.3em] text-[var(--gold)]">← Back to all temples</Link>
-      </div>
-    </div>
-  ),
-  component: TempleDetail,
-});
+import { Link, useParams, Navigate } from "react-router-dom";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import SanskritDivider from "@/components/SanskritDivider.jsx";
+import Particles from "@/components/Particles.jsx";
+import TempleGallery from "@/components/TempleGallery.jsx";
+import Timeline from "@/components/Timeline.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
+import { getTemple, getGallery, getReferences, temples } from "@/data/temples.js";
 
 const SECTIONS = [
   { id: "overview", label: "Overview" },
@@ -60,17 +22,14 @@ const SECTIONS = [
   { id: "references", label: "References" },
 ];
 
-function TempleDetail() {
+export default function TempleDetail() {
   useReveal();
-  const t = Route.useLoaderData() as Temple;
-  const idx = temples.findIndex(x => x.slug === t.slug);
-  const next = temples[(idx + 1) % temples.length];
-  const gallery = getGallery(t.slug, t.image);
-  const references = getReferences(t);
-
-  // Sticky nav active section tracking
+  const { slug } = useParams();
+  const t = getTemple(slug);
   const [active, setActive] = useState("overview");
+
   useEffect(() => {
+    if (!t) return;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -84,17 +43,31 @@ function TempleDetail() {
       if (el) io.observe(el);
     });
     return () => io.disconnect();
-  }, [t.slug]);
+  }, [t?.slug]);
+
+  useEffect(() => {
+    if (t) document.title = `${t.name} · ${t.location} · Sanātana`;
+  }, [t]);
+
+  if (!t) {
+    // Unknown slug — send to /temples
+    return <Navigate to="/temples" replace />;
+  }
+
+  const idx = temples.findIndex((x) => x.slug === t.slug);
+  const next = temples[(idx + 1) % temples.length];
+  const gallery = getGallery(t.slug, t.heroImage || t.image);
+  const references = getReferences(t);
 
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
-        {/* ── HERO ────────────────────────────────────────── */}
+        {/* HERO */}
         <section className="relative h-[92vh] min-h-[600px] w-full overflow-hidden grain vignette">
           <div className="absolute inset-0 -z-10">
             <img
-              src={t.image}
+              src={t.heroImage || t.image}
               alt={t.name}
               className="h-full w-full object-cover animate-fade"
               style={{ animationDuration: "2.5s", transform: "scale(1.08)", transformOrigin: "center" }}
@@ -121,7 +94,6 @@ function TempleDetail() {
             </div>
           </div>
 
-          {/* Hero info strip */}
           <div className="absolute inset-x-0 bottom-0 z-10 border-t border-[var(--gold)]/15 bg-background/55 backdrop-blur">
             <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px sm:grid-cols-4">
               {[
@@ -139,7 +111,7 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── STICKY IN-PAGE NAV ─────────────────────────── */}
+        {/* STICKY NAV */}
         <div className="sticky top-0 z-30 border-b border-[var(--gold)]/15 bg-background/80 backdrop-blur-xl">
           <div className="mx-auto max-w-7xl px-6">
             <nav className="flex gap-1 overflow-x-auto py-3 scrollbar-none">
@@ -162,7 +134,7 @@ function TempleDetail() {
 
         <SanskritDivider />
 
-        {/* ── QUICK FACTS ────────────────────────────────── */}
+        {/* QUICK FACTS */}
         <section className="relative px-6 pt-4 pb-16">
           <div className="mx-auto max-w-7xl reveal">
             <p className="text-center text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Quick Facts</p>
@@ -184,9 +156,7 @@ function TempleDetail() {
           </div>
         </section>
 
-
-
-        {/* ── OVERVIEW ───────────────────────────────────── */}
+        {/* OVERVIEW */}
         <Section id="overview" eyebrow="Overview" title="A first glimpse">
           <Prose text={t.overview} />
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -203,7 +173,7 @@ function TempleDetail() {
           </div>
         </Section>
 
-        {/* ── HISTORY ────────────────────────────────────── */}
+        {/* HISTORY */}
         <section id="history" className="relative px-6 py-20 bg-stone-deep scroll-mt-20">
           <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-start">
             <div className="reveal relative overflow-hidden rounded-sm lg:sticky lg:top-24 self-start">
@@ -220,14 +190,13 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* Cinematic architecture image between sections */}
         <div className="reveal mx-auto max-w-7xl px-6 pt-16">
           <div className="overflow-hidden rounded-sm">
             <img src={gallery[4]} alt={`${t.name} grand view`} loading="lazy" className="h-[55vh] w-full object-cover" />
           </div>
         </div>
 
-        {/* ── MYTHOLOGY ──────────────────────────────────── */}
+        {/* MYTHOLOGY */}
         <section id="mythology" className="relative px-6 py-20 scroll-mt-20">
           <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-start">
             <div className="reveal">
@@ -244,7 +213,7 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── MYSTERIES ──────────────────────────────────── */}
+        {/* MYSTERIES */}
         <section id="mysteries" className="relative px-6 py-20 bg-stone-deep scroll-mt-20">
           <div className="mx-auto max-w-6xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Mysteries & Legends</p>
@@ -262,7 +231,7 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── ARCHITECTURE ───────────────────────────────── */}
+        {/* ARCHITECTURE */}
         <section id="architecture" className="relative px-6 py-20 scroll-mt-20">
           <div className="mx-auto max-w-4xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Sacred Architecture</p>
@@ -284,7 +253,7 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── RITUALS & FESTIVALS ────────────────────────── */}
+        {/* RITUALS & FESTIVALS */}
         <section id="rituals" className="relative px-6 py-20 bg-stone-deep">
           <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2">
             <div className="reveal">
@@ -308,48 +277,27 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── GALLERY ────────────────────────────────────── */}
+        {/* GALLERY */}
         <section id="gallery" className="relative px-6 py-20">
           <div className="mx-auto max-w-7xl">
             <div className="reveal">
               <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Gallery</p>
               <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Fragments of the sacred.</h2>
             </div>
-            <div className="mt-12 grid auto-rows-[220px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {gallery.map((src, i) => (
-                <div
-                  key={i}
-                  className={`reveal group relative overflow-hidden rounded-sm ${
-                    i === 0 ? "col-span-2 row-span-2" : i === 3 ? "row-span-2" : ""
-                  }`}
-                  style={{ transitionDelay: `${i * 60}ms` }}
-                >
-                  <img src={src} alt={`${t.name} ${i + 1}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                </div>
-              ))}
-            </div>
+            <TempleGallery images={gallery} name={t.name} />
           </div>
         </section>
 
-        {/* ── TIMELINE ───────────────────────────────────── */}
+        {/* TIMELINE */}
         <section id="timeline" className="relative px-6 py-20 bg-stone-deep">
           <div className="mx-auto max-w-4xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Timeline</p>
             <h2 className="mt-4 font-serif text-4xl sm:text-5xl">Moments in stone.</h2>
-            <div className="relative mt-16 pl-8 border-l border-[var(--gold)]/30">
-              {t.timeline.map((m, i) => (
-                <div key={i} className="reveal relative pb-12" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <span className="absolute -left-[2.45rem] top-1.5 block h-3 w-3 rounded-full bg-[var(--gold)] shadow-[0_0_14px_var(--saffron)]" />
-                  <p className="font-serif text-2xl text-[var(--gold)]">{m.year}</p>
-                  <p className="mt-2 text-foreground/65 text-sm">{m.event}</p>
-                </div>
-              ))}
-            </div>
+            <Timeline items={t.timeline} />
           </div>
         </section>
 
-        {/* ── RARE FACTS ─────────────────────────────────── */}
+        {/* RARE FACTS */}
         <section className="relative px-6 py-20">
           <div className="mx-auto max-w-5xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">Rare Facts</p>
@@ -365,7 +313,7 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── REFERENCES ─────────────────────────────────── */}
+        {/* REFERENCES */}
         <section id="references" className="relative px-6 py-20 bg-stone-deep">
           <div className="mx-auto max-w-5xl reveal">
             <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">References & Further Reading</p>
@@ -391,12 +339,11 @@ function TempleDetail() {
           </div>
         </section>
 
-        {/* ── NEXT ───────────────────────────────────────── */}
+        {/* NEXT */}
         <section className="relative px-6 py-16 text-center">
           <p className="text-[10px] uppercase tracking-[0.4em] text-foreground/40">Continue the pilgrimage</p>
           <Link
-            to="/temples/$slug"
-            params={{ slug: next.slug }}
+            to={`/temple/${next.slug}`}
             className="mt-6 inline-block font-serif text-3xl sm:text-4xl text-[var(--gold)] hover:text-glow transition"
           >
             {next.name} →
@@ -413,11 +360,11 @@ function TempleDetail() {
   );
 }
 
-function Badge({ children }: { children: React.ReactNode }) {
+function Badge({ children }) {
   return <span className="rounded-full border border-[var(--gold)]/25 px-3 py-1.5">{children}</span>;
 }
 
-function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children: React.ReactNode }) {
+function Section({ id, eyebrow, title, children }) {
   return (
     <section id={id} className="relative px-6 py-20 scroll-mt-20">
       <div className="mx-auto max-w-4xl reveal">
@@ -429,13 +376,11 @@ function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string
   );
 }
 
-function Prose({ text }: { text: string }) {
-  const paragraphs = text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
+function Prose({ text }) {
+  const paragraphs = String(text || "").split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
   return (
     <div className="space-y-5">
-      {paragraphs.map((p, i) => (
-        <p key={i}>{p}</p>
-      ))}
+      {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
     </div>
   );
 }

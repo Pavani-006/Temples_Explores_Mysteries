@@ -2,13 +2,11 @@ import { useEffect } from "react";
 
 /**
  * Adds the `in` class to elements with `.reveal` as they scroll into view.
- * One observer per page, runs once on mount.
  */
 export function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".reveal");
+    const els = document.querySelectorAll(".reveal");
     if (!els.length) return;
-
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -20,7 +18,6 @@ export function useReveal() {
       },
       { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
     );
-
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);

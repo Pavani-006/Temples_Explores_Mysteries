@@ -1,22 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { PageHero } from "@/components/site/PageHero";
-import { useReveal } from "@/hooks/use-reveal";
-import { temples } from "@/data/temples";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import PageHero from "@/components/PageHero.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
+import { temples } from "@/data/temples.js";
 import mysteriesImg from "@/assets/mysteries.jpg";
-
-export const Route = createFileRoute("/mysteries")({
-  head: () => ({
-    meta: [
-      { title: "Ancient Mysteries · Sanātana" },
-      { name: "description", content: "Hanging pillars, hidden chambers, ice lingams and self-manifested idols — explore the unexplained within India's sacred temples." },
-      { property: "og:title", content: "Ancient Mysteries · Sanātana" },
-      { property: "og:description", content: "The unexplained within India's sacred temples." },
-    ],
-  }),
-  component: MysteriesPage,
-});
 
 const TOPICS = [
   { title: "Hanging Pillars", body: "At Lepakshi, one of seventy stone pillars hangs without touching the floor. Cloth slides freely beneath it.", temple: "lepakshi" },
@@ -29,11 +17,11 @@ const TOPICS = [
   { title: "Self-Manifested Idols", body: "Tirumala, Amarnath, Mookambika — deities that arrived before any priest carved the first stone.", temple: "tirumala-venkateswara" },
 ];
 
-function MysteriesPage() {
+export default function Mysteries() {
   useReveal();
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
         <PageHero
           eyebrow="Ancient Mysteries & Legends"
@@ -45,11 +33,10 @@ function MysteriesPage() {
         <section className="relative px-6 py-24">
           <div className="mx-auto max-w-7xl grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
             {TOPICS.map((m, i) => {
-              const t = temples.find(x => x.slug === m.temple);
+              const t = temples.find((x) => x.slug === m.temple);
               return (
                 <Link
-                  to="/temples/$slug"
-                  params={{ slug: m.temple }}
+                  to={`/temple/${m.temple}`}
                   key={m.title}
                   className="reveal glass group relative overflow-hidden rounded-sm p-10 transition-all duration-700 hover:-translate-y-1 hover:glow-gold"
                   style={{ transitionDelay: `${i * 60}ms` }}

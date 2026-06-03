@@ -1,28 +1,16 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { PageHero } from "@/components/site/PageHero";
-import { SanskritDivider } from "@/components/site/SanskritDivider";
-import { useReveal } from "@/hooks/use-reveal";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import PageHero from "@/components/PageHero.jsx";
+import SanskritDivider from "@/components/SanskritDivider.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
 import pilgrimImg from "@/assets/pilgrim.jpg";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About · Sanātana" },
-      { name: "description", content: "Sanātana is a cinematic archive of ancient India's sacred temples — built as a quiet pilgrimage through stone, fire and silence." },
-      { property: "og:title", content: "About · Sanātana" },
-      { property: "og:description", content: "A cinematic archive of ancient India's sacred temples." },
-    ],
-  }),
-  component: AboutPage,
-});
-
-function AboutPage() {
+export default function About() {
   useReveal();
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
         <PageHero
           eyebrow="About Sanātana"
@@ -34,15 +22,9 @@ function AboutPage() {
 
         <section className="relative px-6 py-24">
           <div className="mx-auto max-w-3xl reveal space-y-8 text-lg leading-relaxed text-foreground/75 font-light">
-            <p>
-              Every temple in this archive has stood for centuries — often millennia. Each has watched dynasties rise and fall, faiths reform, oceans recede and rivers change course. And yet, dawn after dawn, the lamp is lit, the mantra spoken, the sanctum opened.
-            </p>
-            <p>
-              The aim of Sanātana is to honour that continuity. Not to catalogue. Not to explain. But to show — through cinematic visuals, slow storytelling and quiet design — what these temples actually feel like: ancient, sacred, mysterious, peaceful, alive.
-            </p>
-            <p>
-              The histories drawn here come from inscriptions, Puranic literature, temple records, oral tradition and modern scholarship. Where mystery is recorded, we record it. Where it is explained, we leave the explanation to the reader.
-            </p>
+            <p>Every temple in this archive has stood for centuries — often millennia. Each has watched dynasties rise and fall, faiths reform, oceans recede and rivers change course. And yet, dawn after dawn, the lamp is lit, the mantra spoken, the sanctum opened.</p>
+            <p>The aim of Sanātana is to honour that continuity. Not to catalogue. Not to explain. But to show — through cinematic visuals, slow storytelling and quiet design — what these temples actually feel like: ancient, sacred, mysterious, peaceful, alive.</p>
+            <p>The histories drawn here come from inscriptions, Puranic literature, temple records, oral tradition and modern scholarship. Where mystery is recorded, we record it. Where it is explained, we leave the explanation to the reader.</p>
           </div>
         </section>
 

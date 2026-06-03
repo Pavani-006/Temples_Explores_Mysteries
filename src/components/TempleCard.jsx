@@ -1,17 +1,15 @@
-import { Link } from "@tanstack/react-router";
-import type { Temple } from "@/data/temples";
+import { Link } from "react-router-dom";
 
-export function TempleCard({ temple, index = 0 }: { temple: Temple; index?: number }) {
+export default function TempleCard({ temple, index = 0 }) {
   return (
     <Link
-      to="/temples/$slug"
-      params={{ slug: temple.slug }}
+      to={`/temple/${temple.slug}`}
       className="reveal group relative block overflow-hidden rounded-sm bg-stone-deep border border-[var(--gold)]/10 transition-all duration-700 hover:-translate-y-1 hover:border-[var(--gold)]/40 hover:glow-gold"
       style={{ transitionDelay: `${(index % 6) * 60}ms` }}
     >
       <div className="relative h-72 overflow-hidden">
         <img
-          src={temple.image}
+          src={temple.heroImage || temple.image}
           alt={temple.name}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"

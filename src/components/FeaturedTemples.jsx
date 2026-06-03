@@ -1,7 +1,7 @@
-import { Link } from "@tanstack/react-router";
-import { SectionHeading } from "./SectionHeading";
-import { TempleCard } from "./TempleCard";
-import { temples } from "@/data/temples";
+import { Link } from "react-router-dom";
+import SectionHeading from "./SectionHeading.jsx";
+import TempleCard from "./TempleCard.jsx";
+import { temples } from "@/data/temples.js";
 
 const FEATURED_SLUGS = [
   "tirumala-venkateswara",
@@ -12,10 +12,8 @@ const FEATURED_SLUGS = [
   "brihadeeswarar",
 ];
 
-export function FeaturedTemples() {
-  const featured = FEATURED_SLUGS
-    .map((s) => temples.find((t) => t.slug === s))
-    .filter((t): t is NonNullable<typeof t> => Boolean(t));
+export default function FeaturedTemples() {
+  const featured = FEATURED_SLUGS.map((s) => temples.find((t) => t.slug === s)).filter(Boolean);
 
   return (
     <section id="featured-temples" className="relative px-6 py-32 sm:py-40">

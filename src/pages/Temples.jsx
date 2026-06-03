@@ -1,26 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { PageHero } from "@/components/site/PageHero";
-import { TempleCard } from "@/components/site/TempleCard";
-import { useReveal } from "@/hooks/use-reveal";
-import { temples, STATES, DEITIES, STYLES, MYSTERY_TYPES } from "@/data/temples";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import PageHero from "@/components/PageHero.jsx";
+import TempleCard from "@/components/TempleCard.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
+import { temples, STATES, DEITIES, STYLES, MYSTERY_TYPES } from "@/data/temples.js";
 import architecture from "@/assets/architecture.jpg";
 
-export const Route = createFileRoute("/temples/")({
-  head: () => ({
-    meta: [
-      { title: "Temple Explorer · 50 Sacred Temples of India · Sanātana" },
-      { name: "description", content: "Search and explore the most mysterious and architecturally stunning temples of India — by state, deity, architecture and mystery." },
-      { property: "og:title", content: "Temple Explorer · Sanātana" },
-      { property: "og:description", content: "An immersive directory of India's most sacred temples." },
-    ],
-  }),
-  component: TemplesPage,
-});
-
-function TemplesPage() {
+export default function Temples() {
   useReveal();
   const [q, setQ] = useState("");
   const [state, setState] = useState("");
@@ -43,11 +31,13 @@ function TemplesPage() {
     });
   }, [q, state, deity, style, mystery]);
 
-  const reset = () => { setQ(""); setState(""); setDeity(""); setStyle(""); setMystery(""); };
+  const reset = () => {
+    setQ(""); setState(""); setDeity(""); setStyle(""); setMystery("");
+  };
 
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
         <PageHero
           eyebrow="The Temple Explorer"
@@ -93,7 +83,9 @@ function TemplesPage() {
               <div className="py-32 text-center">
                 <p className="font-serif text-3xl text-[var(--gold)]">ॐ</p>
                 <p className="mt-4 text-foreground/60">No temples match these filters.</p>
-                <button onClick={reset} className="mt-6 text-xs uppercase tracking-[0.3em] text-[var(--gold)]">Clear filters</button>
+                <button onClick={reset} className="mt-6 text-xs uppercase tracking-[0.3em] text-[var(--gold)]">
+                  Clear filters
+                </button>
               </div>
             ) : (
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -116,7 +108,7 @@ function TemplesPage() {
   );
 }
 
-function Field({ children }: { children: React.ReactNode }) {
+function Field({ children }) {
   return (
     <div className="rounded-sm border border-[var(--gold)]/20 bg-background/40 px-4 py-3">
       {children}
@@ -124,7 +116,7 @@ function Field({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Select({ value, onChange, options, label }: { value: string; onChange: (v: string) => void; options: string[]; label: string }) {
+function Select({ value, onChange, options, label }) {
   return (
     <div className="rounded-sm border border-[var(--gold)]/20 bg-background/40 px-4 py-3">
       <select

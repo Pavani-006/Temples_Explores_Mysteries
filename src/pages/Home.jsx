@@ -1,12 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useReveal } from "@/hooks/use-reveal";
-import { Nav } from "@/components/site/Nav";
-import { Hero } from "@/components/site/Hero";
-import { Footer } from "@/components/site/Footer";
-import { SanskritDivider } from "@/components/site/SanskritDivider";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Particles } from "@/components/site/Particles";
-import { FeaturedTemples } from "@/components/site/FeaturedTemples";
+import { useReveal } from "@/hooks/use-reveal.js";
+import Navbar from "@/components/Navbar.jsx";
+import HeroSection from "@/components/HeroSection.jsx";
+import Footer from "@/components/Footer.jsx";
+import SanskritDivider from "@/components/SanskritDivider.jsx";
+import SectionHeading from "@/components/SectionHeading.jsx";
+import Particles from "@/components/Particles.jsx";
+import FeaturedTemples from "@/components/FeaturedTemples.jsx";
 
 import historyImg from "@/assets/history-stone.jpg";
 import mysteriesImg from "@/assets/mysteries.jpg";
@@ -18,48 +17,21 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Sanātana · Ancient Indian Temples & Sacred Mysteries" },
-      {
-        name: "description",
-        content:
-          "A cinematic pilgrimage through the temples, mysteries, architecture and unbroken rituals of ancient India — told in stone, fire and silence.",
-      },
-      { property: "og:title", content: "Sanātana · Ancient Indian Temples & Sacred Mysteries" },
-      {
-        property: "og:description",
-        content:
-          "Cinematic storytelling of Tirumala and the sacred temple geography of ancient Bhārata.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
-  component: Index,
-});
-
-/* ─────────────────────────────────────────────────────────── */
-
-function Index() {
+export default function Home() {
   useReveal();
-
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
-        <Hero />
-
+        <HeroSection />
         <FeaturedTemples />
-
         <SanskritDivider />
-
         <History />
         <Mysteries />
         <Architecture />
         <Rituals />
         <Festivals />
-        <Timeline />
+        <HomeTimeline />
         <Gallery />
         <Pilgrim />
       </main>
@@ -67,8 +39,6 @@ function Index() {
     </div>
   );
 }
-
-/* ── HISTORY ──────────────────────────────────────────────── */
 
 function History() {
   return (
@@ -80,8 +50,6 @@ function History() {
             <img
               src={historyImg}
               alt="Ancient carved stone wall of South Indian temple"
-              width={1600}
-              height={1000}
               loading="lazy"
               className="relative h-[60vh] w-full object-cover grayscale-[15%] contrast-110"
             />
@@ -98,14 +66,10 @@ function History() {
             eyebrow="The History"
             align="left"
             title={<>A mountain older than memory.</>}
-            subtitle="The Tirumala hills have been worshipped for over two thousand years — long before Cholas and Pallavas carved their names into stone. Pilgrim records, copper plates and forgotten dynasties all converge here, each leaving behind a footprint in granite."
+            subtitle="The Tirumala hills have been worshipped for over two thousand years — long before Cholas and Pallavas carved their names into stone."
           />
           <div className="mt-12 grid grid-cols-3 gap-6 border-t border-[var(--gold)]/15 pt-8">
-            {[
-              ["2200+", "years of worship"],
-              ["7", "sacred hills"],
-              ["108", "Divya Desams"],
-            ].map(([n, l]) => (
+            {[["2200+", "years of worship"], ["7", "sacred hills"], ["108", "Divya Desams"]].map(([n, l]) => (
               <div key={l}>
                 <p className="font-serif text-3xl text-[var(--gold)]">{n}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-foreground/55">{l}</p>
@@ -118,37 +82,16 @@ function History() {
   );
 }
 
-/* ── MYSTERIES ────────────────────────────────────────────── */
-
 function Mysteries() {
   const items = [
-    {
-      title: "The Unseen Hair",
-      body:
-        "The deity's hair is said to remain forever smooth, never tangling. No human hand has explained why.",
-    },
-    {
-      title: "The Burning Camphor",
-      body:
-        "A drop of camphor placed on the idol's chin dissolves without trace — yet leaves the stone untouched.",
-    },
-    {
-      title: "The Inner Ocean",
-      body:
-        "Place an ear close to the sanctum and a faint roar of waves is heard, though no sea lies within reach.",
-    },
-    {
-      title: "The Eternal Lamp",
-      body:
-        "A flame in the inner shrine has burned, by record, for more than a thousand years without extinction.",
-    },
+    { title: "The Unseen Hair", body: "The deity's hair is said to remain forever smooth, never tangling. No human hand has explained why." },
+    { title: "The Burning Camphor", body: "A drop of camphor placed on the idol's chin dissolves without trace — yet leaves the stone untouched." },
+    { title: "The Inner Ocean", body: "Place an ear close to the sanctum and a faint roar of waves is heard, though no sea lies within reach." },
+    { title: "The Eternal Lamp", body: "A flame in the inner shrine has burned, by record, for more than a thousand years without extinction." },
   ];
 
   return (
-    <section
-      id="mysteries"
-      className="relative overflow-hidden px-6 py-32 sm:py-44"
-    >
+    <section id="mysteries" className="relative overflow-hidden px-6 py-32 sm:py-44">
       <div
         className="absolute inset-0 -z-10 opacity-40"
         style={{
@@ -165,13 +108,7 @@ function Mysteries() {
         <div className="reveal">
           <SectionHeading
             eyebrow="Ancient Mysteries & Legends"
-            title={
-              <>
-                Some things in the sanctum
-                <br />
-                <span className="italic text-[var(--gold)]">cannot be explained.</span>
-              </>
-            }
+            title={<>Some things in the sanctum<br /><span className="italic text-[var(--gold)]">cannot be explained.</span></>}
             subtitle="Four mysteries the priests have never resolved — passed mouth to mouth through unbroken lineage."
           />
         </div>
@@ -187,9 +124,7 @@ function Mysteries() {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="font-serif text-2xl text-foreground">{m.title}</h3>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-foreground/65 font-light">
-                {m.body}
-              </p>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-foreground/65 font-light">{m.body}</p>
               <span className="mt-8 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.32em] text-[var(--gold)]/80">
                 Read the legend <span>→</span>
               </span>
@@ -200,8 +135,6 @@ function Mysteries() {
     </section>
   );
 }
-
-/* ── ARCHITECTURE ─────────────────────────────────────────── */
 
 function Architecture() {
   const pillars = [
@@ -218,8 +151,6 @@ function Architecture() {
           <img
             src={architectureImg}
             alt="Towering ancient South Indian gopuram in warm light"
-            width={1600}
-            height={1000}
             loading="lazy"
             className="h-[78vh] w-full rounded-sm object-cover"
           />
@@ -247,8 +178,6 @@ function Architecture() {
   );
 }
 
-/* ── RITUALS ──────────────────────────────────────────────── */
-
 function Rituals() {
   return (
     <section id="rituals" className="relative overflow-hidden px-6 py-32 sm:py-44 bg-stone-deep">
@@ -257,13 +186,7 @@ function Rituals() {
           <SectionHeading
             eyebrow="Rituals & Traditions"
             align="left"
-            title={
-              <>
-                Fire, water, flower,
-                <br />
-                <span className="italic text-[var(--gold)]">and silence.</span>
-              </>
-            }
+            title={<>Fire, water, flower,<br /><span className="italic text-[var(--gold)]">and silence.</span></>}
             subtitle="Before dawn breaks, the deity is awakened with mantra. Honey, milk, sandal and saffron flow across stone. The same gestures, in the same order, for a thousand years."
           />
           <div className="mt-12 space-y-5">
@@ -286,8 +209,6 @@ function Rituals() {
           <img
             src={ritualsImg}
             alt="Brass diyas with flickering flames during temple ritual"
-            width={1600}
-            height={1000}
             loading="lazy"
             className="relative h-[70vh] w-full rounded-sm object-cover"
           />
@@ -296,8 +217,6 @@ function Rituals() {
     </section>
   );
 }
-
-/* ── FESTIVALS ────────────────────────────────────────────── */
 
 function Festivals() {
   const fests = [
@@ -309,22 +228,17 @@ function Festivals() {
 
   return (
     <section id="festivals" className="relative overflow-hidden">
-      {/* Cinematic full-bleed image */}
       <div className="relative h-[60vh] w-full">
         <img
           src={festivalsImg}
           alt="Thousands of oil lamps illuminating ancient temple steps at night"
-          width={1600}
-          height={1000}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/70" />
         <div className="relative z-10 flex h-full items-center justify-center px-6 reveal">
           <h2 className="max-w-4xl text-center font-serif text-5xl sm:text-7xl text-foreground text-glow">
-            A million lamps,
-            <br />
-            <span className="italic text-[var(--gold)]">one silence.</span>
+            A million lamps,<br /><span className="italic text-[var(--gold)]">one silence.</span>
           </h2>
         </div>
       </div>
@@ -337,9 +251,7 @@ function Festivals() {
               className="reveal group relative bg-background p-8 transition-colors duration-700 hover:bg-[var(--stone)]"
               style={{ transitionDelay: `${i * 60}ms` }}
             >
-              <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--gold)]/80">
-                {f.month}
-              </p>
+              <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--gold)]/80">{f.month}</p>
               <h3 className="mt-4 font-serif text-2xl text-foreground">{f.name}</h3>
               <p className="mt-3 text-sm text-foreground/60 font-light">{f.note}</p>
               <span className="mt-8 block h-px w-8 bg-[var(--gold)]/40 transition-all duration-700 group-hover:w-20" />
@@ -351,9 +263,7 @@ function Festivals() {
   );
 }
 
-/* ── TIMELINE ─────────────────────────────────────────────── */
-
-function Timeline() {
+function HomeTimeline() {
   const moments = [
     { year: "300 BCE", title: "First inscription", body: "The earliest stone record names the deity of the hill." },
     { year: "850 CE", title: "Chola patronage", body: "Vast endowments expand the temple complex." },
@@ -374,7 +284,6 @@ function Timeline() {
       </div>
 
       <div className="relative mx-auto mt-20 max-w-3xl">
-        {/* center line */}
         <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-transparent via-[var(--gold)]/40 to-transparent md:left-1/2" />
 
         <div className="space-y-16">
@@ -385,7 +294,6 @@ function Timeline() {
                 i % 2 ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
-              {/* dot */}
               <span className="absolute left-4 top-2 -translate-x-1/2 md:left-1/2">
                 <span className="absolute inset-0 -m-3 rounded-full ember-glow opacity-70 animate-pulse-glow" />
                 <span className="relative block h-3 w-3 rounded-full bg-[var(--gold)] shadow-[0_0_12px_var(--saffron)]" />
@@ -405,8 +313,6 @@ function Timeline() {
     </section>
   );
 }
-
-/* ── GALLERY ──────────────────────────────────────────────── */
 
 function Gallery() {
   const imgs = [
@@ -445,8 +351,6 @@ function Gallery() {
   );
 }
 
-/* ── PILGRIM ──────────────────────────────────────────────── */
-
 function Pilgrim() {
   return (
     <section id="pilgrim" className="relative overflow-hidden">
@@ -454,8 +358,6 @@ function Pilgrim() {
         <img
           src={pilgrimImg}
           alt="Lone pilgrim silhouette ascending temple steps at dawn"
-          width={1600}
-          height={1000}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -467,9 +369,7 @@ function Pilgrim() {
             The Pilgrim's Experience
           </p>
           <h2 className="reveal mt-8 font-serif text-5xl sm:text-7xl text-foreground text-glow">
-            Walk the stones
-            <br />
-            <span className="italic text-[var(--gold)]">that walked before you.</span>
+            Walk the stones<br /><span className="italic text-[var(--gold)]">that walked before you.</span>
           </h2>
           <p className="reveal mt-8 max-w-xl text-base sm:text-lg text-foreground/70 font-light">
             Every step on the seven hills is said to be a verse of the oldest

@@ -1,24 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { PageHero } from "@/components/site/PageHero";
-import { useReveal } from "@/hooks/use-reveal";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import PageHero from "@/components/PageHero.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
 import architectureImg from "@/assets/architecture.jpg";
 import historyImg from "@/assets/history-stone.jpg";
 import g1 from "@/assets/gallery-1.jpg";
 import g2 from "@/assets/gallery-2.jpg";
-
-export const Route = createFileRoute("/architecture")({
-  head: () => ({
-    meta: [
-      { title: "Sacred Architecture · Sanātana" },
-      { name: "description", content: "Dravidian, Kalinga, Nagara, Hoysala — the styles, geometries and stone-craft of India's sacred architecture." },
-      { property: "og:title", content: "Sacred Architecture · Sanātana" },
-      { property: "og:description", content: "The styles and stone-craft of India's sacred architecture." },
-    ],
-  }),
-  component: ArchitecturePage,
-});
 
 const STYLES = [
   { name: "Dravidian", line: "Tiered vimanas, multi-storey gopurams, sprawling concentric prakaras — South India's signature.", example: "Brihadeeswarar · Srirangam · Meenakshi" },
@@ -38,11 +26,11 @@ const ELEMENTS = [
   { name: "Pradakshina patha", line: "The circumambulatory passage — walking the cosmos." },
 ];
 
-function ArchitecturePage() {
+export default function Architecture() {
   useReveal();
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
         <PageHero
           eyebrow="Sacred Architecture"
@@ -51,7 +39,6 @@ function ArchitecturePage() {
           image={architectureImg}
         />
 
-        {/* Styles */}
         <section className="relative px-6 py-28">
           <div className="mx-auto max-w-7xl">
             <p className="reveal text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]/80">The six idioms</p>
@@ -68,7 +55,6 @@ function ArchitecturePage() {
           </div>
         </section>
 
-        {/* Image + elements */}
         <section className="relative px-6 py-28 bg-stone-deep">
           <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_1fr] lg:items-center">
             <div className="reveal relative">
@@ -90,7 +76,6 @@ function ArchitecturePage() {
           </div>
         </section>
 
-        {/* Twin images */}
         <section className="relative grid sm:grid-cols-2">
           {[g1, g2].map((img, i) => (
             <div key={i} className="relative aspect-[4/3] overflow-hidden">

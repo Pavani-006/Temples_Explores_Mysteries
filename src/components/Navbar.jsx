@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 
 const LINKS = [
-  { to: "/", label: "Home" },
+  { to: "/", label: "Home", end: true },
   { to: "/temples", label: "Temples" },
   { to: "/mysteries", label: "Mysteries" },
   { to: "/architecture", label: "Architecture" },
   { to: "/legends", label: "Legends" },
   { to: "/gallery", label: "Gallery" },
   { to: "/about", label: "About" },
-] as const;
+];
 
-export function Nav() {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -41,14 +41,20 @@ export function Nav() {
         </Link>
         <nav className="hidden md:flex items-center gap-8">
           {LINKS.map((l) => (
-            <Link
+            <NavLink
               key={l.to}
               to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              className="text-xs uppercase tracking-[0.22em] text-foreground/60 hover:text-[var(--gold)] transition-colors duration-500 data-[status=active]:text-[var(--gold)]"
+              end={l.end}
+              className={({ isActive }) =>
+                `text-xs uppercase tracking-[0.22em] transition-colors duration-500 ${
+                  isActive
+                    ? "text-[var(--gold)]"
+                    : "text-foreground/60 hover:text-[var(--gold)]"
+                }`
+              }
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <Link

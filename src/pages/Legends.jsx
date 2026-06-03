@@ -1,30 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { PageHero } from "@/components/site/PageHero";
-import { useReveal } from "@/hooks/use-reveal";
-import { temples } from "@/data/temples";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar.jsx";
+import Footer from "@/components/Footer.jsx";
+import PageHero from "@/components/PageHero.jsx";
+import { useReveal } from "@/hooks/use-reveal.js";
+import { temples } from "@/data/temples.js";
 import pilgrimImg from "@/assets/pilgrim.jpg";
 
-export const Route = createFileRoute("/legends")({
-  head: () => ({
-    meta: [
-      { title: "Legends & Mythology · Sanātana" },
-      { name: "description", content: "The mythologies hidden within India's temples — Krishna's drowned city, Sati's scattered body, the descent of the Ganga." },
-      { property: "og:title", content: "Legends & Mythology · Sanātana" },
-      { property: "og:description", content: "The mythologies hidden within India's temples." },
-    ],
-  }),
-  component: LegendsPage,
-});
-
-function LegendsPage() {
+export default function Legends() {
   useReveal();
-  const legends = temples.filter(t => t.mythology).slice(0, 14);
+  const legends = temples.filter((t) => t.mythology).slice(0, 14);
 
   return (
     <div className="relative bg-background text-foreground">
-      <Nav />
+      <Navbar />
       <main>
         <PageHero
           eyebrow="Legends & Mythology"
@@ -42,8 +30,7 @@ function LegendsPage() {
                   <h2 className="mt-4 font-serif text-3xl text-foreground leading-tight">{t.name}</h2>
                   <p className="mt-2 text-xs uppercase tracking-[0.3em] text-foreground/45">{t.state}</p>
                   <Link
-                    to="/temples/$slug"
-                    params={{ slug: t.slug }}
+                    to={`/temple/${t.slug}`}
                     className="mt-6 inline-block text-[10px] uppercase tracking-[0.32em] text-[var(--gold)]/80 hover:text-[var(--gold)]"
                   >
                     Visit Temple →
