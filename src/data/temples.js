@@ -11,27 +11,6 @@ import g3 from "@/assets/gallery-3.jpg";
 
 const POOL = [tirumala, history, mysteries, architecture, rituals, festivals, pilgrim, g1, g2, g3];
 
-export type Temple = {
-  slug: string;
-  name: string;
-  location: string;
-  state: string;
-  deity: string;
-  architecture: string;
-  period: string;
-  mysteryType: string;
-  tagline: string;
-  overview: string;
-  history: string;
-  mythology: string;
-  mysteries: string[];
-  architectureNote: string;
-  rituals: string[];
-  festivals: string[];
-  rareFacts: string[];
-  timeline: { year: string; event: string }[];
-  image: string;
-};
 
 export const temples = [
   {
