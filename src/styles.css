@@ -6,7 +6,7 @@
 
 /* ---------------------------------------------------------------
  * Sacred Cinematic Design System
- * Deep black stone · antique gold · saffron · temple firelight
+ * Devotional saffron · antique gold · temple warmth · sacred light
  * --------------------------------------------------------------- */
 
 @layer base {
@@ -74,46 +74,74 @@
 :root {
   --radius: 0.5rem;
 
-  /* Deep stone night */
-  --background: oklch(0.13 0.012 60);
-  --foreground: oklch(0.92 0.025 80);
+  /* Warm devotional saffron — temple sandalwood light */
+  --background: oklch(0.94 0.025 65);
+  --foreground: oklch(0.28 0.04 55);
 
-  --card: oklch(0.16 0.014 60 / 0.6);
-  --card-foreground: oklch(0.92 0.025 80);
-  --popover: oklch(0.16 0.014 60);
-  --popover-foreground: oklch(0.92 0.025 80);
+  --card: oklch(0.90 0.02 65 / 0.7);
+  --card-foreground: oklch(0.28 0.04 55);
+  --popover: oklch(0.92 0.02 65);
+  --popover-foreground: oklch(0.28 0.04 55);
 
-  /* Antique gold as primary */
-  --primary: oklch(0.78 0.13 78);
-  --primary-foreground: oklch(0.12 0.01 60);
+  /* Antique saffron-gold as primary */
+  --primary: oklch(0.62 0.16 55);
+  --primary-foreground: oklch(0.98 0.005 80);
 
-  --secondary: oklch(0.2 0.015 60);
-  --secondary-foreground: oklch(0.92 0.025 80);
+  --secondary: oklch(0.88 0.02 65);
+  --secondary-foreground: oklch(0.28 0.04 55);
 
-  --muted: oklch(0.2 0.012 60);
-  --muted-foreground: oklch(0.62 0.025 75);
+  --muted: oklch(0.85 0.015 65);
+  --muted-foreground: oklch(0.50 0.03 60);
 
-  --accent: oklch(0.65 0.18 50);
-  --accent-foreground: oklch(0.12 0.01 60);
+  --accent: oklch(0.58 0.18 48);
+  --accent-foreground: oklch(0.98 0.005 80);
 
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0.005 80);
 
-  --border: oklch(0.78 0.13 78 / 0.18);
-  --input: oklch(0.78 0.13 78 / 0.2);
-  --ring: oklch(0.78 0.13 78 / 0.5);
+  --border: oklch(0.62 0.10 55 / 0.30);
+  --input: oklch(0.62 0.10 55 / 0.35);
+  --ring: oklch(0.62 0.16 55 / 0.5);
 
   /* Brand tokens */
-  --gold: oklch(0.78 0.13 78);
-  --gold-soft: oklch(0.68 0.09 75);
-  --saffron: oklch(0.68 0.19 55);
+  --gold: oklch(0.65 0.13 70);
+  --gold-soft: oklch(0.58 0.09 68);
+  --saffron: oklch(0.62 0.18 50);
   --ember: oklch(0.55 0.18 40);
-  --stone: oklch(0.18 0.013 60);
+  --stone: oklch(0.86 0.015 65);
 }
 
 .dark {
-  --background: oklch(0.13 0.012 60);
-  --foreground: oklch(0.92 0.025 80);
+  /* Deeper warm devotional tones for dark mode */
+  --background: oklch(0.22 0.04 55);
+  --foreground: oklch(0.92 0.025 75);
+
+  --card: oklch(0.28 0.04 55 / 0.6);
+  --card-foreground: oklch(0.92 0.025 75);
+  --popover: oklch(0.28 0.04 55);
+  --popover-foreground: oklch(0.92 0.025 75);
+
+  --primary: oklch(0.72 0.14 70);
+  --primary-foreground: oklch(0.18 0.02 50);
+
+  --secondary: oklch(0.32 0.035 55);
+  --secondary-foreground: oklch(0.92 0.025 75);
+
+  --muted: oklch(0.35 0.03 55);
+  --muted-foreground: oklch(0.65 0.025 70);
+
+  --accent: oklch(0.65 0.18 50);
+  --accent-foreground: oklch(0.18 0.02 50);
+
+  --border: oklch(0.72 0.13 70 / 0.25);
+  --input: oklch(0.72 0.13 70 / 0.30);
+  --ring: oklch(0.72 0.13 70 / 0.5);
+
+  --gold: oklch(0.72 0.13 70);
+  --gold-soft: oklch(0.65 0.09 68);
+  --saffron: oklch(0.65 0.18 48);
+  --ember: oklch(0.58 0.18 40);
+  --stone: oklch(0.32 0.035 55);
 }
 
 @layer base {
@@ -137,7 +165,7 @@
     letter-spacing: -0.01em;
   }
   ::selection {
-    background: oklch(0.78 0.13 78 / 0.3);
+    background: oklch(0.62 0.16 55 / 0.3);
     color: oklch(0.98 0.02 80);
   }
 }
@@ -151,32 +179,32 @@
   .bg-stone-deep { background-color: var(--stone); }
 
   .glass {
-    background: linear-gradient(180deg, oklch(0.2 0.012 60 / 0.55), oklch(0.14 0.012 60 / 0.65));
+    background: linear-gradient(180deg, oklch(0.92 0.015 65 / 0.60), oklch(0.88 0.015 65 / 0.70));
     backdrop-filter: blur(14px) saturate(120%);
     -webkit-backdrop-filter: blur(14px) saturate(120%);
-    border: 1px solid oklch(0.78 0.13 78 / 0.14);
+    border: 1px solid oklch(0.62 0.10 55 / 0.22);
   }
 
   .glow-gold {
     box-shadow:
-      0 0 0 1px oklch(0.78 0.13 78 / 0.12),
-      0 20px 60px -20px oklch(0.68 0.19 55 / 0.35),
-      inset 0 1px 0 oklch(0.78 0.13 78 / 0.08);
+      0 0 0 1px oklch(0.62 0.10 55 / 0.15),
+      0 20px 60px -20px oklch(0.62 0.16 55 / 0.30),
+      inset 0 1px 0 oklch(0.62 0.10 55 / 0.10);
   }
 
   .text-glow {
-    text-shadow: 0 0 30px oklch(0.78 0.13 78 / 0.35), 0 0 80px oklch(0.68 0.19 55 / 0.2);
+    text-shadow: 0 0 30px oklch(0.62 0.13 70 / 0.35), 0 0 80px oklch(0.62 0.16 55 / 0.2);
   }
 
   .ember-glow {
-    background: radial-gradient(circle at center, oklch(0.68 0.19 55 / 0.55), transparent 60%);
+    background: radial-gradient(circle at center, oklch(0.62 0.18 50 / 0.50), transparent 60%);
     filter: blur(28px);
   }
 
   .vignette::after {
     content: "";
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, transparent 40%, oklch(0.08 0.01 60 / 0.85) 100%);
+    background: radial-gradient(ellipse at center, transparent 40%, oklch(0.18 0.04 50 / 0.75) 100%);
     pointer-events: none;
   }
 
@@ -194,8 +222,8 @@
   .grain::before {
     content: "";
     position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.8  0 0 0 0 0.6  0 0 0 0 0.3  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    opacity: 0.5;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.75  0 0 0 0 0.50  0 0 0 0 0.25  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.4;
     mix-blend-mode: overlay;
     pointer-events: none;
   }
