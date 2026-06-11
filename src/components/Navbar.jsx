@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle.jsx";
 
 const LINKS = [
   { to: "/", label: "Home", end: true },
@@ -57,12 +58,15 @@ export default function Navbar() {
             </NavLink>
           ))}
         </nav>
-        <Link
-          to="/temples"
-          className="hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--gold)]/30 px-5 py-2 text-xs uppercase tracking-[0.22em] text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-all duration-500"
-        >
-          Explore
-        </Link>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Link
+            to="/temples"
+            className="hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--gold)]/30 px-5 py-2 text-xs uppercase tracking-[0.22em] text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-all duration-500"
+          >
+            Explore
+          </Link>
+        </div>
       </div>
     </header>
   );
